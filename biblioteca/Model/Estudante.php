@@ -5,11 +5,13 @@ class Estudante {
     private $id;
     private $nome;
     private $matricula;
+    private $curso;
 
-    public function __construct($id, $nome, $matricula) {
+    public function __construct($id, $nome, $matricula, $curso) {
         $this->id = $id;
         $this->nome = $nome;
         $this->matricula = $matricula;
+        $this->curso = $curso;
     }
 
     public function getId() {
@@ -28,6 +30,13 @@ class Estudante {
     }
     public function setMatricula($matricula) {
         return $this->matricula = $matricula;
+    }
+
+    public function getCurso() {
+        return $this->curso;
+    }
+    public function setCurso($curso) {
+        return $this->curso = $curso;
     }
 }
 ?>
