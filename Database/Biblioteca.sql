@@ -3,18 +3,18 @@ CREATE DATABASE IF NOT EXISTS Biblioteca;
 USE Biblioteca;
 
 
-CREATE TABLE IF NOT EXISTS Autores (
+CREATE TABLE IF NOT EXISTS Autor (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     nacionalidade VARCHAR(100)
 );
 
 
-CREATE TABLE IF NOT EXISTS Livros (
+CREATE TABLE IF NOT EXISTS Livro (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     autor_id INT,
-    ano_publicacao YEAR,
+    ano YEAR,
     genero VARCHAR(100),
     FOREIGN KEY (autor_id) REFERENCES Autores(id)
 );
