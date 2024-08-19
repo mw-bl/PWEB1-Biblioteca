@@ -28,5 +28,12 @@ class Database {
             $this->conn->close();
         }
     }
+    public function testConnection() {
+        if ($this->conn) {
+            echo "Conexão estabelecida.";
+        } else {
+            echo "Falha na conexão.";
+        }
+    }
 }
 ?>
