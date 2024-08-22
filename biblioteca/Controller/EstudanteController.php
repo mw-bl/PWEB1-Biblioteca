@@ -17,15 +17,17 @@ class AutorController {
         $this->repository = new EstudanteRepository();
     }
 
-    public function cadastrarEstudante($nome) {
-        $estudante = new Estudante(null, $nome);
+    public function cadastrarEstudante($nome, $matricula, $curso) {
+        $estudante = new Estudante(null, $nome, $matricula, $curso);
         $this->repository->save($estudante);
     }
 
-    public function editarEstudante($id, $nome) {
+    public function editarEstudante($id, $nome, $matricula, $curso) {
         $estudante = $this->repository->findById($id);
         if ($estudante) {
             $estudante->setNome($nome);
+            $estudante->setMatricula($matricula);
+            $estudante->setNome($curso);
             $this->repository->save($estudante);
         }
     }

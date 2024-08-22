@@ -17,16 +17,20 @@ class LivroController {
         $this->repository = new LivroRepository();
     }
 
-    public function cadastrarLivro($titulo, $ano, $autor) {
-        $livro = new Livro($titulo, $ano, $autor);
+    public function cadastrarLivro($titulo, $ano, $autorId, $genero) {
+        $livro = new Livro($titulo, $ano, $autorId, $ano, $genero);
         $this->repository->save($livro);
     }
 
-    public function editarLivro($titulo, $ano, $autor) {
-        $livro->setTitulo($titulo);
-        $livro->setAno($ano);
-        $livro->setAutor($autor);
-        $this->repository->save($livro);
+    public function editarLivro($titulo, $ano, $autorId, $genero) {
+        $livro = $this->repository->findById($id);
+        if ($livro) {
+            $livro->setTitulo($titulo);
+            $livro->setAno($ano);
+            $livro->setAutorId($autorId);
+            $livro->setGenero($genero);
+            $this->repository->save($livro);
+        }
     }
 
     // ajustar as outras partes ligadas a essa
@@ -36,6 +40,10 @@ class LivroController {
 
     public function listarLivros() {
         return $this->repository->findAll();
+    }
+
+    public function getLivroById($id) {
+        return $this->repository->findById($id);
     }
 
 }
