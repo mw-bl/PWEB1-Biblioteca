@@ -2,8 +2,10 @@
 namespace Model;
 
 class Livro {
+    private $id;
     private $titulo;
     private $ano;
+    private $autorId;
     private $genero;
 
     public function __construct($id, $titulo, $ano, $autorId, $genero) {
@@ -35,7 +37,6 @@ class Livro {
     public function getAutorId() {
         return $this->autorId;
     }
-
     public function setAutorId($autorId) {
         $this->autorId = $autorId;
     }
@@ -43,7 +44,6 @@ class Livro {
     public function getGenero() {
         return $this->genero;
     }
-
     public function setGenero($genero) {
         $this->genero = $genero;
     }

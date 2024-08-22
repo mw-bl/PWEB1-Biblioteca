@@ -27,7 +27,7 @@ class AutorController {
         if ($estudante) {
             $estudante->setNome($nome);
             $estudante->setMatricula($matricula);
-            $estudante->setNome($curso);
+            $estudante->setCurso($curso);
             $this->repository->save($estudante);
         }
     }

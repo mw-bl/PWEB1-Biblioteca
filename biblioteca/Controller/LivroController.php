@@ -18,7 +18,7 @@ class LivroController {
     }
 
     public function cadastrarLivro($titulo, $ano, $autorId, $genero) {
-        $livro = new Livro($titulo, $ano, $autorId, $ano, $genero);
+        $livro = new Livro($titulo, $ano, $autorId, $genero);
         $this->repository->save($livro);
     }
 
@@ -33,7 +33,6 @@ class LivroController {
         }
     }
 
-    // ajustar as outras partes ligadas a essa
     public function excluirLivro($id) {
         $this->repository->delete($id);
     }
