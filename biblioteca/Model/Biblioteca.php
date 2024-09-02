@@ -2,48 +2,57 @@
 
 namespace Model;
 
-include_once 'Livro.php';
-include_once 'Estudante.php';
-
 use Model\Livro;
 use Model\Estudante;
+use Repository\EmprestimoRepository;
 
 class Biblioteca {
-    private $livros = [];
+    private $livros; // Lista de todos os livros disponíveis na biblioteca
 
     public function __construct() {
-        // Inicializar a lista de livros (ou carregar do banco, se necessário)
+        $this->livros = [];
+        $this->emprestimoRepository = new EmprestimoRepository(); // Repositório para gerenciar empréstimos
     }
 
+    /**
+     * Realiza o empréstimo de um livro para um estudante.
+     * 
+     * @param Livro $livro
+     * @param Estudante $estudante
+     * @return bool Retorna true se o empréstimo for bem-sucedido, false caso contrário.
+     */
     public function emprestarLivro(Livro $livro, Estudante $estudante): bool {
         if ($livro->isDisponivel()) {
-            $livro->setDisponivel(false);
-            // Aqui, você pode salvar a informação do empréstimo no banco de dados
-            return true;
+            // Salvar o empréstimo no banco de dados
+            return $this->emprestimoRepository->salvarEmprestimo($livro, $estudante);
         }
         return false;
     }
 
+    /**
+     * Realiza a devolução de um livro por um estudante.
+     * 
+     * @param Livro $livro
+     * @param Estudante $estudante
+     * @return bool Retorna true se a devolução for bem-sucedida, false caso contrário.
+     */
     public function devolverLivro(Livro $livro, Estudante $estudante): bool {
         if (!$livro->isDisponivel()) {
-            $livro->setDisponivel(true);
-            // Aqui, você pode atualizar a informação de devolução no banco de dados
-            return true;
+            // Atualizar o registro de empréstimo no banco de dados
+            return $this->emprestimoRepository->registrarDevolucao($livro, $estudante);
         }
         return false;
     }
 
+    /**
+     * Obtém uma lista de livros emprestados por um determinado estudante.
+     * 
+     * @param Estudante $estudante
+     * @return array Retorna uma lista de objetos Livro que estão emprestados para o estudante.
+     */
     public function livrosEmprestados(Estudante $estudante): array {
-        // Retorna uma lista de livros que o estudante tem emprestado
-        $livrosEmprestados = [];
-
-        foreach ($this->livros as $livro) {
-            if ($livro->getEstudanteId() === $estudante->getId() && !$livro->isDisponivel()) {
-                $livrosEmprestados[] = $livro;
-            }
-        }
-
-        return $livrosEmprestados;
+        // Busca os livros emprestados no banco de dados
+        return $this->emprestimoRepository->buscarLivrosEmprestados($estudante);
     }
 }
 
