@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $nacionalidade = $_POST['nacionalidade'];
     $controller->cadastrarAutor($nome, $nacionalidade);
-    header('Location: listar_autores.php');
+    header('Location: cadastrar_autores.php');
     exit;
 }
 ?>
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h1>Cadastrar Novo Autor</h1>
     <a href="index.php">Voltar para a página inicial</a>
-    <form action="cadastrar_autor.php" method="post">
+    <form action="cadastrar_autores.php" method="post">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
         <br>

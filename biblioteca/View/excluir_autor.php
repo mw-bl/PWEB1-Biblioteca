@@ -8,7 +8,6 @@ use Controller\AutorController;
 
 $id = $_GET['id'];
 
-// Cria uma instância do controlador com a conexão
 $controller = new AutorController();
 $controller->excluirAutor($id);
 header('Location: listar_autores.php');

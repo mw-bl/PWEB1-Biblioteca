@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $matricula = $_POST['matricula'];
     $curso = $_POST['curso'];
     $controller->cadastrarEstudante($nome, $matricula, $curso);
-    header('Location: listar_estudantes.php');
+    header('Location: cadastrar_estudantes.php');
     exit;
 }
 ?>

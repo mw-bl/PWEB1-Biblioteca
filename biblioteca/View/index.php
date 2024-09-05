@@ -8,6 +8,13 @@
 <body>
     <h1>Menu Principal</h1>
     <a href="cadastrar_autor.php">Cadastrar Novo Autor</a><br>
-    <a href="listar_autores.php">Listar Autores</a>
+    <a href="cadastrar_livro.php">Cadastrar Novo Livro</a><br>
+    <a href="cadastrar_estudante.php">Cadastrar Novo Estudante</a><br>
+
+    <br><a href="listar_autores.php">Listar Autores</a><br>
+    <a href="listar_livros.php">Listar Livros</a><br>
+    <a href="listar_estudantes.php">Listar Estudantes</a><br>
+
+
 </body>
 </html>
