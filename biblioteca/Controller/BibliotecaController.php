@@ -1,63 +1,68 @@
 <?php
-
 namespace Controller;
 
-include_once '../Model/Biblioteca.php';
 include_once '../Model/Livro.php';
 include_once '../Model/Estudante.php';
-include_once '../Repository/EmprestimoRepository.php';
+include_once '../Repository/BibliotecaRepository.php';
+require_once '../db/Database.php';
 
-use Model\Biblioteca;
 use Model\Livro;
 use Model\Estudante;
-use Repository\EmprestimoRepository;
+use Repository\BibliotecaRepository;
+use db\Database;
 
 class BibliotecaController {
-    private $biblioteca;
+    private $repository;
 
     public function __construct() {
-        $this->biblioteca = new Biblioteca();
+        $this->repository = new BibliotecaRepository();
     }
 
-    public function emprestarLivro($livroId, $estudanteId): bool {
-        $livro = $this->buscarLivroPorId($livroId);
-        $estudante = $this->buscarEstudantePorId($estudanteId);
-
-        if ($livro && $estudante) {
-            return $this->biblioteca->emprestarLivro($livro, $estudante);
-        }
-
-        return false;
-    }
-
-    public function devolverLivro($livroId, $estudanteId): bool {
-        $livro = $this->buscarLivroPorId($livroId);
-        $estudante = $this->buscarEstudantePorId($estudanteId);
-
-        if ($livro && $estudante) {
-            return $this->biblioteca->devolverLivro($livro, $estudante);
-        }
-
-        return false;
-    }
-
-    public function listarLivrosEmprestados($estudanteId): array {
-        $estudante = $this->buscarEstudantePorId($estudanteId);
-        if ($estudante) {
-            return $this->biblioteca->livrosEmprestados($estudante);
-        }
-
-        return [];
-    }
-
-    private function buscarLivroPorId($livroId) {
+    public function emprestarLivro($livroId, $estudanteId) {
         $livroRepository = new LivroRepository();
-        return $livroRepository->findById($livroId);
+        $estudanteRepository = new EstudanteRepository();
+
+        $livro = $livroRepository->findById($livroId);
+        $estudante = $estudanteRepository->findById($estudanteId);
+
+        if ($livro && $estudante) {
+            $success = $this->repository->emprestarLivro($livro, $estudante);
+            if ($success) {
+                return "Livro emprestado com sucesso.";
+            } else {
+                return "Este livro já está emprestado.";
+            }
+        }
+        return "Livro ou estudante não encontrado.";
     }
 
-    private function buscarEstudantePorId($estudanteId) {
+    public function devolverLivro($livroId, $estudanteId) {
+        $livroRepository = new LivroRepository();
         $estudanteRepository = new EstudanteRepository();
-        return $estudanteRepository->findById($estudanteId);
+
+        $livro = $livroRepository->findById($livroId);
+        $estudante = $estudanteRepository->findById($estudanteId);
+
+        if ($livro && $estudante) {
+            $success = $this->repository->devolverLivro($livro, $estudante);
+            if ($success) {
+                return "Livro devolvido com sucesso.";
+            } else {
+                return "Nenhum empréstimo ativo para este livro.";
+            }
+        }
+        return "Livro ou estudante não encontrado.";
+    }
+
+    // Listar livros emprestados por um estudante
+    public function listarLivrosEmprestados($estudanteId) {
+        $estudanteRepository = new EstudanteRepository();
+        $estudante = $estudanteRepository->findById($estudanteId);
+
+        if ($estudante) {
+            return $this->repository->livrosEmprestados($estudante);
+        }
+        return "Estudante não encontrado.";
     }
 }
 ?>

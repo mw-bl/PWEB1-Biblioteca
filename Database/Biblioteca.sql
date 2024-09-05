@@ -1,21 +1,26 @@
 CREATE DATABASE Biblioteca;
 USE Biblioteca;
 
+-- Tabela Autor
 CREATE TABLE Autor (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     nacionalidade VARCHAR(100)
 );
 
+-- Tabela Livro
 CREATE TABLE Livro (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     ano YEAR,
     autor_id INT,
     genero VARCHAR(100),
-    FOREIGN KEY (autor_id) REFERENCES Autor(id)
+    FOREIGN KEY (autor_id) REFERENCES Autor(id) 
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE
 );
 
+-- Tabela Estudante
 CREATE TABLE Estudante (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -23,15 +28,21 @@ CREATE TABLE Estudante (
     curso VARCHAR(100)
 );
 
+-- Tabela Emprestimos
 CREATE TABLE Emprestimos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     livro_id INT,
     estudante_id INT,
-    data_emprestimo DATE,
-    data_devolucao DATE,
-    FOREIGN KEY (livro_id) REFERENCES Livro(id),
-    FOREIGN KEY (estudante_id) REFERENCES Estudante(id)
+    data_emprestimo DATE NOT NULL,
+    data_devolucao DATE DEFAULT NULL,
+    FOREIGN KEY (livro_id) REFERENCES Livro(id) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+    FOREIGN KEY (estudante_id) REFERENCES Estudante(id) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
+
 
 
 INSERT INTO Autor (nome, nacionalidade) VALUES
