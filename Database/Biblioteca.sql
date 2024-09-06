@@ -13,8 +13,8 @@ CREATE TABLE Livro (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     ano YEAR,
-    autor_id INT,
     genero VARCHAR(100),
+    autor_id INT,
     FOREIGN KEY (autor_id) REFERENCES Autor(id) 
         ON DELETE SET NULL 
         ON UPDATE CASCADE
@@ -42,7 +42,6 @@ CREATE TABLE Emprestimos (
         ON DELETE CASCADE 
         ON UPDATE CASCADE
 );
-
 
 
 INSERT INTO Autor (nome, nacionalidade) VALUES
