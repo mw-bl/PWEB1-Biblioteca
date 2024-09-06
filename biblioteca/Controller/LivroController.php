@@ -17,18 +17,18 @@ class LivroController {
         $this->repository = new LivroRepository();
     }
 
-    public function cadastrarLivro($titulo, $ano, $autorId, $genero) {
-        $livro = new Livro($titulo, $ano, $autorId, $genero);
+    public function cadastrarLivro($titulo, $ano, $genero, $autorId) {
+        $livro = new Livro($titulo, $ano, $genero, $autorId);
         $this->repository->save($livro);
     }
 
-    public function editarLivro($titulo, $ano, $autorId, $genero) {
+    public function editarLivro($titulo, $ano, $genero, $autorId) {
         $livro = $this->repository->findById($id);
         if ($livro) {
             $livro->setTitulo($titulo);
             $livro->setAno($ano);
-            $livro->setAutorId($autorId);
             $livro->setGenero($genero);
+            $livro->setAutorId($autorId);
             $this->repository->save($livro);
         }
     }

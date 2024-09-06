@@ -5,15 +5,15 @@ class Livro {
     private $id;
     private $titulo;
     private $ano;
-    private $autorId;
     private $genero;
+    private $autorId;
 
-    public function __construct($id, $titulo, $ano, $autorId, $genero) {
+    public function __construct($id, $titulo, $ano, $genero, $autorId) {
         $this->id = $id;
         $this->titulo = $titulo;
-        $this->autorId = $autorId;
         $this->ano = $ano;
         $this->genero = $genero;
+        $this->autorId = $autorId;
     }
 
     public function getId() {
@@ -34,19 +34,18 @@ class Livro {
         return $this->ano = $ano;
     }
 
-    public function getAutorId() {
-        return $this->autorId;
-    }
-    public function setAutorId($autorId) {
-        $this->autorId = $autorId;
-    }
-
     public function getGenero() {
         return $this->genero;
     }
     public function setGenero($genero) {
         $this->genero = $genero;
     }
-
+    
+    public function getAutorId() {
+        return $this->autorId;
+    }
+    public function setAutorId($autorId) {
+        $this->autorId = $autorId;
+    }
 }
 ?>

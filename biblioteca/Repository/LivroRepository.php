@@ -18,50 +18,29 @@ class LivroRepository {
         $conn = $this->db->getConnection();
 
         if ($livro->getId()) {
-            $sql = "UPDATE livro SET titulo=?, ano=?, autor_id=?, genero=? WHERE id=?";
+            $sql = "UPDATE Livro SET titulo=?, ano=?, genero=?, autor_id=? WHERE id=?";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
                 die('Erro na preparação da consulta: ' . $conn->error);
             }
             $stmt->bind_param("ssisi", $livro->getTitulo(), $livro->getAno(), $livro->getAutorId(), $livro->getGenero(), $livro->getId());
         } else {
-            $sql = "INSERT INTO livro (titulo, ano, autor_id, genero) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO livro (titulo, ano, genero, autor_id) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
                 die('Erro na preparação da consulta: ' . $conn->error);
             }
-            $stmt->bind_param("ssis", $livro->getTitulo(), $livro->getAno(), $livro->getAutorId(), $livro->getGenero());
+            $stmt->bind_param("sssi", $livro->getTitulo(), $livro->getAno(), $livro->getGenero(), $livro->getAutorId());
         }
 
         $stmt->execute();
         $stmt->close();
-    }
-
-    public function findById($id) {
-        $conn = $this->db->getConnection();
-        
-        $sql = "SELECT id, titulo, ano, autor_id, genero FROM livro WHERE id=?";
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->bind_result($id, $titulo, $ano, $autorId, $genero);
-
-        if ($stmt->fetch()) {
-            $stmt->close();
-            return new Livro($titulo, $ano, $autorId, $genero, $id);
-        }
-
-        $stmt->close();
-        return null;
     }
 
     public function findAll() {
         $conn = $this->db->getConnection();
         
-        $sql = "SELECT id, titulo, ano, autor_id, genero FROM livro";
+        $sql = "SELECT id, titulo, ano, genero, autor_id FROM Livro";
         $result = $conn->query($sql);
 
         if ($result === false) {
@@ -70,7 +49,7 @@ class LivroRepository {
 
         $livros = [];
         while ($row = $result->fetch_assoc()) {
-            $livros[] = new Livro($row['titulo'], $row['ano'], $row['autor_id'], $row['genero'], $row['id']);
+            $livros[] = new Livro( $row['id'], $row['titulo'], $row['ano'], $row['genero'], $row['autor_id']);
         }
 
         $result->free();
