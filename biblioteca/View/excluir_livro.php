@@ -8,7 +8,6 @@ use Controller\LivroController;
 
 $id = $_GET['id'];
 
-// Cria uma instância do controlador com a conexão
 $controller = new LivroController();
 $controller->excluirLivro($id);
 header('Location: listar_livros.php');

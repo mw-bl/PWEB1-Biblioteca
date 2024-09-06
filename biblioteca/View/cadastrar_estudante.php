@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 include_once '../Controller/EstudanteController.php';
 use Controller\EstudanteController;
 
-// Cria uma instância do controlador com a conexão
 $controller = new EstudanteController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $matricula = $_POST['matricula'];
     $curso = $_POST['curso'];
     $controller->cadastrarEstudante($nome, $matricula, $curso);
-    header('Location: cadastrar_estudantes.php');
+    header('Location: listar_estudantes.php');
     exit;
 }
 ?>

@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 include_once '../Controller/AutorController.php';
 use Controller\AutorController;
 
-
 $controller = new AutorController();
 
 if (isset($_GET['id'])) {

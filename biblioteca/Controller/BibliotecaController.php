@@ -54,7 +54,6 @@ class BibliotecaController {
         return "Livro ou estudante não encontrado.";
     }
 
-    // Listar livros emprestados por um estudante
     public function listarLivrosEmprestados($estudanteId) {
         $estudanteRepository = new EstudanteRepository();
         $estudante = $estudanteRepository->findById($estudanteId);

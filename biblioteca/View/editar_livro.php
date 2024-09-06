@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 include_once '../Controller/LivroController.php';
 use Controller\LivroController;
 
-
 $controller = new LivroController();
 
 if (isset($_GET['id'])) {

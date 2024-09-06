@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 include_once '../Controller/LivroController.php';
 use Controller\LivroController;
 
-// Cria uma instância do controlador com a conexão
 $controller = new LivroController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $autor_id = $_POST['autor_id'];
     $genero = $_POST['genero'];
     $controller->cadastrarLivro($titulo, $ano, $autor_id, $genero);
-    header('Location: cadastrar_livros.php');
+    header('Location: listar_livros.php');
     exit;
 }
 ?>
