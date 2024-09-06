@@ -15,6 +15,9 @@
     <a href="listar_livros.php">Listar Livros</a><br>
     <a href="listar_estudantes.php">Listar Estudantes</a><br>
 
+    <br><a href="devolver_livro.php">Devolver Livro</a><br>
+    <a href="emprestar_livro.php">Emprestar Livro</a><br>
+    <a href="livros_emprestados.php">Livros Emprestados</a><br>
 
 </body>
 </html>

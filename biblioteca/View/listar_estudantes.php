@@ -70,10 +70,10 @@ $estudantes = $controller->listarEstudantes();
         if (!empty($estudantes)) {
             foreach ($estudantes as $estudante) {
                 echo "<tr>
-                    <td>" . $livro->getId() . "</td>
-                    <td>" . $livro->getNome() . "</td>
-                    <td>" . $livro->getMatricula() . "</td>
-                    <td>" . $livro->getCurso() . "</td>
+                    <td>" . $estudante->getId() . "</td>
+                    <td>" . $estudante->getNome() . "</td>
+                    <td>" . $estudante->getMatricula() . "</td>
+                    <td>" . $estudante->getCurso() . "</td>
                     <td>
                         <a href='editar_estudante.php?id=" . $estudante->getId() . "'>Editar</a>
                         <button onclick='confirmarExclusao(" . $estudante->getId() . ")'>Excluir</button>

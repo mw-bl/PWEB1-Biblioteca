@@ -10,7 +10,7 @@ use Repository\EstudanteRepository;
 use db\Database;
 
 
-class AutorController {
+class EstudanteController {
     private $repository;
 
     public function __construct() {

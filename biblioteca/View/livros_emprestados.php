@@ -8,7 +8,7 @@ use Controller\BibliotecaController;
 
 $controller = new BibliotecaController();
 
-$livrosEmprestados = $controller->listarLivrosEmprestados();
+$livrosEmprestados = $controller->livrosEmprestados();
 ?>
 
 <!DOCTYPE html>

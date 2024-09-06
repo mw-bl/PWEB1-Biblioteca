@@ -54,7 +54,19 @@ class BibliotecaController {
         return "Livro ou estudante não encontrado.";
     }
 
-    public function listarLivrosEmprestados($estudanteId) {
+    // Novo método para listar livros disponíveis para empréstimo
+    public function listarLivrosDisponiveis() {
+        $livroRepository = new LivroRepository();
+        return $livroRepository->findLivrosDisponiveis(); // Método que retorna os livros não emprestados
+    }
+
+    // Novo método para listar todos os estudantes
+    public function listarEstudantes() {
+        $estudanteRepository = new EstudanteRepository();
+        return $estudanteRepository->findAll(); // Método que retorna todos os estudantes
+    }
+
+    public function livrosEmprestados($estudanteId) {
         $estudanteRepository = new EstudanteRepository();
         $estudante = $estudanteRepository->findById($estudanteId);
 
@@ -64,4 +76,5 @@ class BibliotecaController {
         return "Estudante não encontrado.";
     }
 }
+
 ?>
