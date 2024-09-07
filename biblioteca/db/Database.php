@@ -6,14 +6,12 @@ class Database {
 
     public function __construct() {
         $servername = "127.0.0.1";
-        $username = "root"; // Substitua pelo seu usuário do MySQL
-        $password = "mw123"; // Substitua pela sua senha do MySQL
-        $dbname = "Biblioteca"; // Substitua pelo nome do seu banco de dados
+        $username = "root";
+        $password = "mw123";
+        $dbname = "Biblioteca";
 
-        // Criar conexão
         $this->conn = new \mysqli($servername, $username, $password, $dbname);
 
-        // Verificar conexão
         if ($this->conn->connect_error) {
             die("Conexão falhou: " . $this->conn->connect_error);
         }

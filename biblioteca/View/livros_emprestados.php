@@ -4,11 +4,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include_once '../Controller/BibliotecaController.php';
+
 use Controller\BibliotecaController;
 
-$controller = new BibliotecaController();
-
-$livrosEmprestados = $controller->livrosEmprestados();
+$bibliotecaController = new BibliotecaController();
+$livrosEmprestados = $bibliotecaController->listarLivrosEmprestados();
 ?>
 
 <!DOCTYPE html>
@@ -17,34 +17,73 @@ $livrosEmprestados = $controller->livrosEmprestados();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livros Emprestados</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <script>
+        function confirmarDevolucao(id) {
+            if (confirm("Tem certeza que deseja devolver este livro?")) {
+                window.location.href = 'devolver_livro.php?id=' + id;
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Livros Emprestados</h1>
     <a href="index.php">Voltar para a página inicial</a>
-
-    <?php if (!empty($livrosEmprestados)): ?>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Estudante</th>
-                    <th>Data de Empréstimo</th>
-                    <th>Data de Devolução</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($livrosEmprestados as $emprestimo): ?>
-                    <tr>
-                        <td><?= $emprestimo['livro']->getTitulo() ?></td>
-                        <td><?= $emprestimo['estudante']->getNome() ?></td>
-                        <td><?= $emprestimo['data_emprestimo'] ?></td>
-                        <td><?= $emprestimo['data_devolucao'] ?? 'Não devolvido' ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>Nenhum livro emprestado no momento.</p>
-    <?php endif; ?>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Título do Livro</th>
+            <th>Nome do Estudante</th>
+            <th>Data de Empréstimo</th>
+            <th>Ações</th>
+        </tr>
+        <?php
+        if (!empty($livrosEmprestados)) {
+            foreach ($listarLivrosEmprestados as $emprestimo) {
+                echo "<tr>
+                    <td>" . $emprestimo['id'] . "</td>
+                    <td>" . $emprestimo['titulo'] . "</td>
+                    <td>" . $emprestimo['nome_estudante'] . "</td>
+                    <td>" . $emprestimo['data_emprestimo'] . "</td>
+                    <td>
+                        <button onclick='confirmarDevolucao(" . $emprestimo['id'] . ")'>Devolver</button>
+                    </td>
+                </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>Nenhum livro emprestado encontrado</td></tr>";
+        }
+        ?>
+    </table>
 </body>
 </html>

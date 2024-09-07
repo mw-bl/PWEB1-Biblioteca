@@ -4,26 +4,32 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include_once '../Controller/BibliotecaController.php';
-use Controller\BibliotecaController;
+include_once '../Controller/EstudanteController.php';
+include_once '../Controller/LivroController.php';
 
-$controller = new BibliotecaController();
+use Controller\BibliotecaController;
+use Controller\EstudanteController;
+use Controller\LivroController;
+
+$bibliotecaController = new BibliotecaController();
+$estudanteController = new EstudanteController();
+$livroController = new LivroController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $livroId = $_POST['livro_id'];
-    $estudanteId = $_POST['estudante_id'];
-
-    // Chama o método de empréstimo e armazena o retorno
-    $mensagem = $controller->emprestarLivro($livroId, $estudanteId);
-    header('Location: emprestar_livro.php?mensagem=' . urlencode($mensagem));
+    $livroId = $_POST['livro'];
+    $estudanteId = $_POST['estudante'];
+    $bibliotecaController->emprestarLivro($livroId, $estudanteId);
+    header('Location: listar_livros_emprestados.php');
     exit;
 }
 
-// Obtém os dados para preencher os selects
-$livrosDisponiveis = $controller->listarLivrosDisponiveis();
-$estudantes = $controller->listarEstudantes();
+$estudantes = $estudanteController->listarEstudantes();
+$livros = $livroController->listarLivros();
 
-// Verifica se há uma mensagem de sucesso ou erro para exibir
-$mensagem = isset($_GET['mensagem']) ? $_GET['mensagem'] : null;
+// Verificar o conteúdo de estudantes
+if (!$estudantes) {
+    echo "Nenhum estudante encontrado.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,30 +42,30 @@ $mensagem = isset($_GET['mensagem']) ? $_GET['mensagem'] : null;
 <body>
     <h1>Emprestar Livro</h1>
     <a href="index.php">Voltar para a página inicial</a>
-
-    <!-- Exibe a mensagem de sucesso ou erro, se houver -->
-    <?php if ($mensagem): ?>
-        <p><?= htmlspecialchars($mensagem) ?></p>
-    <?php endif; ?>
-
     <form action="emprestar_livro.php" method="post">
-        <label for="livro">Selecione o Livro:</label>
-        <select name="livro_id" id="livro" required>
-            <?php foreach ($livrosDisponiveis as $livro): ?>
-                <option value="<?= $livro->getId() ?>"><?= htmlspecialchars($livro->getTitulo()) ?></option>
-            <?php endforeach; ?>
+        <label for="livro">Livro:</label>
+        <select name="livro" id="livro" required>
+            <?php
+            foreach ($livros as $livro) {
+                echo "<option value='{$livro->getId()}'>{$livro->getTitulo()}</option>";
+            }
+            ?>
         </select>
         <br>
-
-        <label for="estudante">Selecione o Estudante:</label>
-        <select name="estudante_id" id="estudante" required>
-            <?php foreach ($estudantes as $estudante): ?>
-                <option value="<?= $estudante->getId() ?>"><?= htmlspecialchars($estudante->getNome()) ?></option>
-            <?php endforeach; ?>
+        <label for="estudante">Estudante:</label>
+        <select name="estudante" id="estudante" required>
+            <?php
+            if (!empty($estudantes)) {
+                foreach ($estudantes as $estudante) {
+                    echo "<option value='{$estudante->getIdEstudante()}'>{$estudante->getNome()}</option>";
+                }
+            } else {
+                echo "<option value=''>Nenhum estudante disponível</option>";
+            }
+            ?>
         </select>
         <br>
-
-        <input type="submit" value="Emprestar Livro">
+        <input type="submit" value="Emprestar">
     </form>
 </body>
 </html>
