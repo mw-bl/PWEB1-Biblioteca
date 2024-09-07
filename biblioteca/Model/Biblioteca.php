@@ -1,47 +1,55 @@
 <?php
 namespace Model;
 
-use Model\Livro;
-use Model\Estudante;
-
 class Biblioteca {
-    private $livros;
-    public function __construct($livros = []) {
-        $this->livros = $livros;
+    private $id;
+    private $livro;
+    private $estudante;
+    private $dataEmprestimo;
+    private $dataDevolucao;
+
+    public function __construct($id, $livro, $estudante, $dataEmprestimo, $dataDevolucao = null) {
+        $this->id = $id;
+        $this->livro = $livro;
+        $this->estudante = $estudante;
+        $this->dataEmprestimo = $dataEmprestimo;
+        $this->dataDevolucao = $dataDevolucao;
     }
 
-    public function getLivros() {
-        return $this->livros;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setLivros($livros) {
-        $this->livros = $livros;
+    public function getLivro() {
+        return $this->livro;
     }
 
-    public function emprestarLivro(Livro $livro, Estudante $estudante, $repository) {
-        $success = $repository->emprestarLivro($livro, $estudante);
-        if ($success) {
-            foreach ($this->livros as $key => $l) {
-                if ($l->getId() == $livro->getId()) {
-                    unset($this->livros[$key]);
-                    return true;
-                }
-            }
-        }
-        return false;
+    public function setLivro($livro) {
+        $this->livro = $livro;
     }
 
-    public function devolverLivro(Livro $livro, Estudante $estudante, $repository) {
-        $success = $repository->devolverLivro($livro, $estudante);
-        if ($success) {
-            array_push($this->livros, $livro);
-            return true;
-        }
-        return false;
+    public function getEstudante() {
+        return $this->estudante;
     }
 
-    public function livrosEmprestados(Estudante $estudante, $repository) {
-        return $repository->livrosEmprestados($estudante);
+    public function setEstudante($estudante) {
+        $this->estudante = $estudante;
+    }
+
+    public function getDataEmprestimo() {
+        return $this->dataEmprestimo;
+    }
+
+    public function setDataEmprestimo($dataEmprestimo) {
+        $this->dataEmprestimo = $dataEmprestimo;
+    }
+
+    public function getDataDevolucao() {
+        return $this->dataDevolucao;
+    }
+
+    public function setDataDevolucao($dataDevolucao) {
+        $this->dataDevolucao = $dataDevolucao;
     }
 }
 ?>

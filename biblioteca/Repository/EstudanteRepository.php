@@ -17,41 +17,41 @@ class EstudanteRepository {
     public function save(Estudante $estudante) {
         $conn = $this->db->getConnection();
 
-        if ($estudante->getId()) {
-            $sql = "UPDATE estudante SET nome=? matricula=? curso=? WHERE id=?";
+        if ($estudante->getIdEstudante()) {
+            $sql = "UPDATE estudante SET nome=? WHERE idEstudante=?";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
                 die('Erro na preparação da consulta: ' . $conn->error);
             }
-            $stmt->bind_param("sssi", $estudante->getNome(), $estudante->getMatricula(), $estudante->getCurso(), $estudante->getId());
+            $stmt->bind_param("si", $estudante->getNome(), $estudante->getIdEstudante());
         } else {
-            $sql = "INSERT INTO estudante (nome, matricula, curso) VALUES (?,?,?)";
+            $sql = "INSERT INTO estudante (nome) VALUES (?)";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
                 die('Erro na preparação da consulta: ' . $conn->error);
             }
-            $stmt->bind_param("sss", $estudante->getNome(), $estudante->getMatricula(), $estudante->getCurso());
+            $stmt->bind_param("s", $estudante->getNome());
         }
 
         $stmt->execute();
         $stmt->close();
     }
 
-    public function findById($id) {
+    public function findById($idEstudante) {
         $conn = $this->db->getConnection();
-        
-        $sql = "SELECT id, nome, matricula, curso FROM estudante WHERE id=?";
+
+        $sql = "SELECT idEstudante, nome FROM estudante WHERE idEstudante=?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             die('Erro na preparação da consulta: ' . $conn->error);
         }
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $idEstudante);
         $stmt->execute();
-        $stmt->bind_result($id, $nome, $matricula, $curso);
+        $stmt->bind_result($idEstudante, $nome);
 
         if ($stmt->fetch()) {
             $stmt->close();
-            return new Estudante($id, $nome, $matricula, $curso);
+            return new Estudante($idEstudante, $nome);
         }
 
         $stmt->close();
@@ -60,8 +60,8 @@ class EstudanteRepository {
 
     public function findAll() {
         $conn = $this->db->getConnection();
-        
-        $sql = "SELECT id, nome, matricula, curso FROM estudante";
+
+        $sql = "SELECT idEstudante, nome FROM estudante";
         $result = $conn->query($sql);
 
         if ($result === false) {
@@ -70,22 +70,22 @@ class EstudanteRepository {
 
         $estudantes = [];
         while ($row = $result->fetch_assoc()) {
-            $estudantes[] = new Estudante($row['id'], $row['nome'], $row['matricula'], $row['curso']);
+            $estudantes[] = new Estudante($row['idEstudante'], $row['nome']);
         }
 
         $result->free();
         return $estudantes;
     }
 
-    public function delete($id) {
+    public function delete($idEstudante) {
         $conn = $this->db->getConnection();
-        
-        $sql = "DELETE FROM estudante WHERE id=?";
+
+        $sql = "DELETE FROM estudante WHERE idEstudante=?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             die('Erro na preparação da consulta: ' . $conn->error);
         }
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $idEstudante);
         $stmt->execute();
         $stmt->close();
     }

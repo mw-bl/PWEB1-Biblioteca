@@ -13,3 +13,4 @@ $controller->excluirAutor($id);
 header('Location: listar_autores.php');
 exit;
 ?>
+

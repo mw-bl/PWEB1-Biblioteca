@@ -3,11 +3,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once '../Controller/LivroController.php';
-use Controller\LivroController;
+include_once '../Controller/EstudanteController.php';
+use Controller\EstudanteController;
 
-$controller = new LivroController();
-$livros = $controller->listarLivros();
+$controller = new EstudanteController();
+$estudantes = $controller->listarEstudantes();
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ $livros = $controller->listarLivros();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Livros</title>
+    <title>Lista de Estudantes</title>
     <style>
         table {
             width: 100%;
@@ -49,41 +49,37 @@ $livros = $controller->listarLivros();
     </style>
     <script>
         function confirmarExclusao(id) {
-            if (confirm("Tem certeza que deseja excluir este livro?")) {
-                window.location.href = 'excluir_livro.php?id=' + id;
+            if (confirm("Tem certeza que deseja excluir este estudante?")) {
+                window.location.href = 'excluir_estudante.php?id=' + id;
             }
         }
     </script>
 </head>
 <body>
-    <h1>Lista de Livros</h1>
+    <h1>Lista de Estudantes</h1>
     <a href="index.php">Voltar para a página inicial</a>
     <table>
         <tr>
             <th>ID</th>
-            <th>Titulo</th>
-            <th>Ano</th>
-            <th>Genero</th>
-            <th>Id Autor</th>
+            <th>Nome</th>
+            <th>Matrícula</th>
             <th>Ações</th>
         </tr>
         <?php
-        if (!empty($livros)) {
-            foreach ($livros as $livro) {
+        if (!empty($estudantes)) {
+            foreach ($estudantes as $estudante) {
                 echo "<tr>
-                    <td>" . $livro->getId() . "</td>
-                    <td>" . $livro->getTitulo() . "</td>
-                    <td>" . $livro->getAno() . "</td>
-                    <td>" . $livro->getGenero() . "</td>
-                    <td>" . $livro->getAutorId() . "</td>
+                    <td>" . $estudante->getId() . "</td>
+                    <td>" . $estudante->getNome() . "</td>
+                    <td>" . $estudante->getMatricula() . "</td>
                     <td>
-                        <a href='editar_livro.php?id=" . $livro->getId() . "'>Editar</a>
-                        <button onclick='confirmarExclusao(" . $livro->getId() . ")'>Excluir</button>
+                        <a href='editar_estudante.php?id=" . $estudante->getId() . "'>Editar</a>
+                        <button onclick='confirmarExclusao(" . $estudante->getId() . ")'>Excluir</button>
                     </td>
                 </tr>";
             }
         } else {
-            echo "<tr><td colspan='4'>Nenhum livro encontrado</td></tr>";
+            echo "<tr><td colspan='4'>Nenhum estudante encontrado</td></tr>";
         }
         ?>
     </table>

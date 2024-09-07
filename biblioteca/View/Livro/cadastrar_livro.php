@@ -11,9 +11,8 @@ $controller = new LivroController();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = $_POST['titulo'];
     $ano = $_POST['ano'];
-    $autor_id = $_POST['autor_id'];
-    $genero = $_POST['genero'];
-    $controller->cadastrarLivro($titulo, $ano, $autor_id, $genero);
+    $autorId = $_POST['autor_id'];
+    $controller->cadastrarLivro($titulo, $ano, $autorId);
     header('Location: listar_livros.php');
     exit;
 }
@@ -30,17 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Cadastrar Novo Livro</h1>
     <a href="index.php">Voltar para a página inicial</a>
     <form action="cadastrar_livro.php" method="post">
-        <label for="titulo">Titulo:</label>
+        <label for="titulo">Título:</label>
         <input type="text" id="titulo" name="titulo" required>
         <br>
-        <label for="ano">Matricula:</label>
-        <input type="text" id="ano" name="ano" required>
+        <label for="ano">Ano:</label>
+        <input type="number" id="ano" name="ano" required>
         <br>
-        <label for="autor_id">Id do Autor:</label>
-        <input type="text" id="autor_id" name="autor_id" required>
-        <br>
-        <label for="genero">Genero:</label>
-        <input type="text" id="genero" name="genero" required>
+        <label for="autor_id">Autor ID:</label>
+        <input type="number" id="autor_id" name="autor_id" required>
         <br>
         <input type="submit" value="Cadastrar">
     </form>

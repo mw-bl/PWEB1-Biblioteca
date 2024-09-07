@@ -7,8 +7,6 @@ require_once '../db/Database.php';
 
 use Model\Estudante;
 use Repository\EstudanteRepository;
-use db\Database;
-
 
 class EstudanteController {
     private $repository;
@@ -17,31 +15,29 @@ class EstudanteController {
         $this->repository = new EstudanteRepository();
     }
 
-    public function cadastrarEstudante($nome, $matricula, $curso) {
-        $estudante = new Estudante(null, $nome, $matricula, $curso);
+    public function cadastrarEstudante($nome) {
+        $estudante = new Estudante(null, $nome);
         $this->repository->save($estudante);
     }
 
-    public function editarEstudante($id, $nome, $matricula, $curso) {
-        $estudante = $this->repository->findById($id);
+    public function editarEstudante($idEstudante, $nome) {
+        $estudante = $this->repository->findById($idEstudante);
         if ($estudante) {
             $estudante->setNome($nome);
-            $estudante->setMatricula($matricula);
-            $estudante->setCurso($curso);
             $this->repository->save($estudante);
         }
     }
 
-    public function excluirEstudante($id) {
-        $this->repository->delete($id);
+    public function excluirEstudante($idEstudante) {
+        $this->repository->delete($idEstudante);
     }
 
     public function listarEstudantes() {
         return $this->repository->findAll();
     }
 
-    public function getEstudanteById($id) {
-        return $this->repository->findById($id);
+    public function getEstudanteById($idEstudante) {
+        return $this->repository->findById($idEstudante);
     }
 }
 ?>
