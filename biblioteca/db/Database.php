@@ -7,8 +7,8 @@ class Database {
     public function __construct() {
         $servername = "127.0.0.1";
         $username = "root"; // Substitua pelo seu usuário do MySQL
-        $password = "aluno"; // Substitua pela sua senha do MySQL
-        $dbname = "biblioteca"; // Substitua pelo nome do seu banco de dados
+        $password = "mw123"; // Substitua pela sua senha do MySQL
+        $dbname = "Biblioteca"; // Substitua pelo nome do seu banco de dados
 
         // Criar conexão
         $this->conn = new \mysqli($servername, $username, $password, $dbname);

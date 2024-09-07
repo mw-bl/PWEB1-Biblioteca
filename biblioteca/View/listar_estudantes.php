@@ -62,19 +62,17 @@ $estudantes = $controller->listarEstudantes();
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Matrícula</th>
             <th>Ações</th>
         </tr>
         <?php
         if (!empty($estudantes)) {
             foreach ($estudantes as $estudante) {
                 echo "<tr>
-                    <td>" . $estudante->getId() . "</td>
+                    <td>" . $estudante->getIdEstudante() . "</td>
                     <td>" . $estudante->getNome() . "</td>
-                    <td>" . $estudante->getMatricula() . "</td>
                     <td>
-                        <a href='editar_estudante.php?id=" . $estudante->getId() . "'>Editar</a>
-                        <button onclick='confirmarExclusao(" . $estudante->getId() . ")'>Excluir</button>
+                        <a href='editar_estudante.php?id=" . $estudante->getIdEstudante() . "'>Editar</a>
+                        <button onclick='confirmarExclusao(" . $estudante->getIdEstudante() . ")'>Excluir</button>
                     </td>
                 </tr>";
             }
