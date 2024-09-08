@@ -3,12 +3,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once '../Controller/BibliotecaController.php';
+include_once '../Controller/EmprestimoController.php';
 
-use Controller\BibliotecaController;
+use Controller\EmprestimoController;
 
-$bibliotecaController = new BibliotecaController();
-$livrosEmprestados = $bibliotecaController->listarLivrosEmprestados();
+$emprestimoController = new EmprestimoController();
+
+$livrosEmprestados = $emprestimoController->listarLivrosEmprestados();
 ?>
 
 <!DOCTYPE html>
@@ -69,14 +70,14 @@ $livrosEmprestados = $bibliotecaController->listarLivrosEmprestados();
         </tr>
         <?php
         if (!empty($livrosEmprestados)) {
-            foreach ($listarLivrosEmprestados as $emprestimo) {
+            foreach ($livrosEmprestados as $emprestimo) {
                 echo "<tr>
-                    <td>" . $emprestimo['id'] . "</td>
-                    <td>" . $emprestimo['titulo'] . "</td>
-                    <td>" . $emprestimo['nome_estudante'] . "</td>
-                    <td>" . $emprestimo['data_emprestimo'] . "</td>
+                    <td>" . $emprestimo->getId() . "</td>
+                    <td>" . $emprestimo->getLivro()->getTitulo() . "</td>
+                    <td>" . $emprestimo->getEstudante()->getNome() . "</td>
+                    <td>" . $emprestimo->getDataEmprestimo() . "</td>
                     <td>
-                        <button onclick='confirmarDevolucao(" . $emprestimo['id'] . ")'>Devolver</button>
+                        <button onclick='confirmarDevolucao(" . $emprestimo->getId() . ")'>Devolver</button>
                     </td>
                 </tr>";
             }

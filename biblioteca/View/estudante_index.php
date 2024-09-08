@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca</title>
+    <title>Estudantes</title>
     <style>
         * {
             margin: 0;
@@ -86,13 +86,11 @@
     </style>
 </head>
 <body>
-    <div class="navbar">Biblioteca IFCE</div>
+    <div class="navbar">Estudantes</div>
     <div class="container">
         <div class="button-container">
-            <a href="autor_index.php" class="button">Autores</a>
-            <a href="livro_index.php" class="button">Livros</a>
-            <a href="estudante_index.php" class="button">Estudantes</a>
-            <a href="emprestimo_index.php" class="button">Empréstimos</a>
+            <a href="cadastrar_estudante.php" class="button">Cadastrar Novo Estudante</a>
+            <a href="listar_estudantes.php" class="button">Listar Estudantes</a>
         </div>
     </div>
 </body>

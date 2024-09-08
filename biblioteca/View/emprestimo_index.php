@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca</title>
+    <title>Empréstimos</title>
     <style>
         * {
             margin: 0;
@@ -38,7 +38,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 1440px;
-            height: 1024px;
+            height: 1024px; 
             margin: 4rem auto 0 auto;
             display: flex;
             flex-direction: column;
@@ -86,13 +86,12 @@
     </style>
 </head>
 <body>
-    <div class="navbar">Biblioteca IFCE</div>
+    <div class="navbar">Empréstimos</div>
     <div class="container">
         <div class="button-container">
-            <a href="autor_index.php" class="button">Autores</a>
-            <a href="livro_index.php" class="button">Livros</a>
-            <a href="estudante_index.php" class="button">Estudantes</a>
-            <a href="emprestimo_index.php" class="button">Empréstimos</a>
+            <a href="emprestar_livro.php" class="button">Emprestar Livro</a>
+            <a href="devolver_livro.php" class="button">Devolver Livro</a>
+            <a href="livros_emprestados.php" class="button">Livros Emprestados</a>
         </div>
     </div>
 </body>

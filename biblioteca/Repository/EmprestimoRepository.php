@@ -4,7 +4,7 @@ namespace Repository;
 require_once '../db/Database.php';
 use db\Database;
 
-class BibliotecaRepository {
+class EmprestimoRepository {
     private $db;
 
     public function __construct() {
@@ -14,18 +14,15 @@ class BibliotecaRepository {
     public function registrarEmprestimo($idLivro, $idEstudante) {
         $conn = $this->db->getConnection();
 
-        // Verifica se o livro já está emprestado
-        $sqlVerifica = "SELECT * FROM emprestimo WHERE idLivro = ? AND dataDevolucao IS NULL";
-        $stmtVerifica = $conn->prepare($sqlVerifica);
-        $stmtVerifica->bind_param("i", $idLivro);
-        $stmtVerifica->execute();
-        $resultVerifica = $stmtVerifica->get_result();
+        $sql = "SELECT * FROM emprestimo WHERE idLivro = ? AND dataDevolucao IS NULL";
+        $stmt = $conn->prepare($sqlVerifica);
+        $stmt->bind_param("i", $idLivro);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         if ($resultVerifica->num_rows > 0) {
-            return false;  // O livro já está emprestado
         }
 
-        // Registra o empréstimo
         $sql = "INSERT INTO emprestimo (idLivro, idEstudante, dataEmprestimo) VALUES (?, ?, CURDATE())";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $idLivro, $idEstudante);
@@ -38,7 +35,6 @@ class BibliotecaRepository {
     public function registrarDevolucao($idLivro, $idEstudante) {
         $conn = $this->db->getConnection();
 
-        // Verifica se há um empréstimo ativo desse livro para esse estudante
         $sql = "UPDATE emprestimo SET dataDevolucao = CURDATE() WHERE idLivro = ? AND idEstudante = ? AND dataDevolucao IS NULL";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $idLivro, $idEstudante);
@@ -46,11 +42,11 @@ class BibliotecaRepository {
         
         if ($stmt->affected_rows > 0) {
             $stmt->close();
-            return true;  // Livro devolvido com sucesso
+            return true;
         }
 
         $stmt->close();
-        return false;  // Nenhum empréstimo ativo encontrado
+        return false;
     }
 
     public function listarLivrosEmprestados($idEstudante) {

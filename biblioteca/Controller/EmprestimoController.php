@@ -3,18 +3,18 @@ namespace Controller;
 
 include_once '../Model/Livro.php';
 include_once '../Model/Estudante.php';
-include_once '../Repository/BibliotecaRepository.php';
+include_once '../Repository/EmprestimoRepository.php';
 require_once '../db/Database.php';
 
 use Model\Livro;
 use Model\Estudante;
-use Repository\BibliotecaRepository;
+use Repository\EmprestimoRepository;
 
-class BibliotecaController {
+class EmprestimoController {
     private $repository;
 
     public function __construct() {
-        $this->repository = new BibliotecaRepository();
+        $this->repository = new EmprestimoRepository();
     }
 
     public function emprestarLivro($livroId, $estudanteId) {
