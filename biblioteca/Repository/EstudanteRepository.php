@@ -1,5 +1,4 @@
 <?php
-
 namespace Repository;
 
 require_once '../db/Database.php';
@@ -20,16 +19,10 @@ class EstudanteRepository {
         if ($estudante->getIdEstudante()) {
             $sql = "UPDATE estudante SET nome=? WHERE idEstudante=?";
             $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die('Erro na preparação da consulta: ' . $conn->error);
-            }
             $stmt->bind_param("si", $estudante->getNome(), $estudante->getIdEstudante());
         } else {
             $sql = "INSERT INTO estudante (nome) VALUES (?)";
             $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die('Erro na preparação da consulta: ' . $conn->error);
-            }
             $stmt->bind_param("s", $estudante->getNome());
         }
 
@@ -42,9 +35,6 @@ class EstudanteRepository {
 
         $sql = "SELECT idEstudante, nome FROM estudante WHERE idEstudante=?";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
         $stmt->bind_param("i", $idEstudante);
         $stmt->execute();
         $stmt->bind_result($idEstudante, $nome);
@@ -64,10 +54,6 @@ class EstudanteRepository {
         $sql = "SELECT idEstudante, nome FROM estudante";
         $result = $conn->query($sql);
 
-        if ($result === false) {
-            die('Erro na execução da consulta: ' . $conn->error);
-        }
-
         $estudantes = [];
         while ($row = $result->fetch_assoc()) {
             $estudantes[] = new Estudante($row['idEstudante'], $row['nome']);
@@ -82,9 +68,6 @@ class EstudanteRepository {
 
         $sql = "DELETE FROM estudante WHERE idEstudante=?";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
         $stmt->bind_param("i", $idEstudante);
         $stmt->execute();
         $stmt->close();

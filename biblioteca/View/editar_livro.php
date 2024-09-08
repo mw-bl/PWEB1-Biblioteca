@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="number" id="ano" name="ano" value="<?php echo htmlspecialchars($livro->getAno()); ?>" required>
         <br>
         <label for="autor_id">Autor ID:</label>
-        <input type="number" id="autor_id" name="autor_id" value="<?php echo htmlspecialchars($livro->getAutor()->getId()); ?>" required>
+        <input type="number" id="autor_id" name="autor_id" value="<?php echo htmlspecialchars($livro->getAutor()); ?>" required>
         <br>
         <input type="submit" value="Atualizar">
     </form>

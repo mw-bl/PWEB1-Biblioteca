@@ -3,40 +3,31 @@ namespace Controller;
 
 include_once '../Model/Livro.php';
 include_once '../Repository/LivroRepository.php';
-include_once '../Repository/AutorRepository.php';
 require_once '../db/Database.php';
 
 use Model\Livro;
 use Repository\LivroRepository;
-use Repository\AutorRepository;
+use db\Database;
 
 class LivroController {
     private $repository;
-    private $autorRepository;
 
     public function __construct() {
         $this->repository = new LivroRepository();
-        $this->autorRepository = new AutorRepository();
     }
 
-    public function cadastrarLivro($titulo, $ano, $autorId) {
-        $autor = $this->autorRepository->findById($autorId);
-        if ($autor) {
-            $livro = new Livro(null, $titulo, $ano, $autor);
-            $this->repository->save($livro);
-        }
+    public function cadastrarLivro($titulo, $ano, $autor) {
+        $livro = new Livro(null, $titulo, $ano, $autor);
+        $this->repository->save($livro);
     }
 
-    public function editarLivro($id, $titulo, $ano, $autorId) {
+    public function editarLivro($id, $titulo, $ano, $autor) {
         $livro = $this->repository->findById($id);
         if ($livro) {
-            $autor = $this->autorRepository->findById($autorId);
-            if ($autor) {
-                $livro->setTitulo($titulo);
-                $livro->setAno($ano);
-                $livro->setAutor($autor);
-                $this->repository->save($livro);
-            }
+            $livro->setTitulo($titulo);
+            $livro->setAno($ano);
+            $livro->setAutor($autor);
+            $this->repository->save($livro);
         }
     }
 

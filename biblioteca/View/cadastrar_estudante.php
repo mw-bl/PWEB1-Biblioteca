@@ -10,8 +10,7 @@ $controller = new EstudanteController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
-    $matricula = $_POST['matricula'];
-    $controller->cadastrarEstudante($nome, $matricula);
+    $controller->cadastrarEstudante($nome);
     header('Location: listar_estudantes.php');
     exit;
 }
@@ -30,9 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form action="cadastrar_estudante.php" method="post">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
-        <br>
-        <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" name="matricula" required>
         <br>
         <input type="submit" value="Cadastrar">
     </form>

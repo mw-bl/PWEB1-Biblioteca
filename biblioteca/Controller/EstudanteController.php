@@ -7,6 +7,7 @@ require_once '../db/Database.php';
 
 use Model\Estudante;
 use Repository\EstudanteRepository;
+use db\Database;
 
 class EstudanteController {
     private $repository;

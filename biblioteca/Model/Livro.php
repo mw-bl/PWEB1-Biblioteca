@@ -22,21 +22,21 @@ class Livro {
         return $this->titulo;
     }
     public function setTitulo($titulo) {
-        return $this->titulo = $titulo;
+        $this->titulo = $titulo;
     }
 
     public function getAno() {
         return $this->ano;
     }
     public function setAno($ano) {
-        return $this->ano = $ano;
+        $this->ano = $ano;
     }
 
     public function getAutor() {
         return $this->autor;
     }
     public function setAutor($autor) {
-        return $this->autor = $autor;
+        $this->autor = $autor;
     }
 }
 ?>

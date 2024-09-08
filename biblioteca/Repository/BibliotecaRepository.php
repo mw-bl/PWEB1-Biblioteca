@@ -1,15 +1,7 @@
 <?php
-
 namespace Repository;
 
 require_once '../db/Database.php';
-include_once '../Model/Biblioteca.php';
-include_once '../Model/Livro.php';
-include_once '../Model/Estudante.php';
-
-use Model\Biblioteca;
-use Model\Livro;
-use Model\Estudante;
 use db\Database;
 
 class BibliotecaRepository {
@@ -19,58 +11,63 @@ class BibliotecaRepository {
         $this->db = new Database();
     }
 
-    public function emprestarLivro($livro, $estudante) {
+    public function registrarEmprestimo($idLivro, $idEstudante) {
         $conn = $this->db->getConnection();
-        $dataEmprestimo = date('Y-m-d');
 
-        $sql = "INSERT INTO biblioteca (livro_id, estudante_id, data_emprestimo) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
+        // Verifica se o livro já está emprestado
+        $sqlVerifica = "SELECT * FROM emprestimo WHERE idLivro = ? AND dataDevolucao IS NULL";
+        $stmtVerifica = $conn->prepare($sqlVerifica);
+        $stmtVerifica->bind_param("i", $idLivro);
+        $stmtVerifica->execute();
+        $resultVerifica = $stmtVerifica->get_result();
+
+        if ($resultVerifica->num_rows > 0) {
+            return false;  // O livro já está emprestado
         }
 
-        $stmt->bind_param("iis", $livro->getId(), $estudante->getIdEstudante(), $dataEmprestimo);
+        // Registra o empréstimo
+        $sql = "INSERT INTO emprestimo (idLivro, idEstudante, dataEmprestimo) VALUES (?, ?, CURDATE())";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ii", $idLivro, $idEstudante);
         $stmt->execute();
         $stmt->close();
+
+        return true;
     }
 
-    public function devolverLivro($livro, $estudante) {
+    public function registrarDevolucao($idLivro, $idEstudante) {
         $conn = $this->db->getConnection();
-        $dataDevolucao = date('Y-m-d');
 
-        $sql = "UPDATE biblioteca SET data_devolucao=? WHERE livro_id=? AND estudante_id=? AND data_devolucao IS NULL";
+        // Verifica se há um empréstimo ativo desse livro para esse estudante
+        $sql = "UPDATE emprestimo SET dataDevolucao = CURDATE() WHERE idLivro = ? AND idEstudante = ? AND dataDevolucao IS NULL";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
-
-        $stmt->bind_param("sii", $dataDevolucao, $livro->getId(), $estudante->getIdEstudante());
+        $stmt->bind_param("ii", $idLivro, $idEstudante);
         $stmt->execute();
-        $stmt->close();
-    }
-
-    public function listarLivrosEmprestados($estudante) {
-        $conn = $this->db->getConnection();
-
-        $sql = "SELECT b.id, l.titulo, b.data_emprestimo, b.data_devolucao FROM biblioteca b 
-                INNER JOIN livro l ON b.livro_id = l.id
-                WHERE b.estudante_id=? AND b.data_devolucao IS NULL";
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
+        
+        if ($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;  // Livro devolvido com sucesso
         }
 
-        $stmt->bind_param("i", $estudante->getIdEstudante());
+        $stmt->close();
+        return false;  // Nenhum empréstimo ativo encontrado
+    }
+
+    public function listarLivrosEmprestados($idEstudante) {
+        $conn = $this->db->getConnection();
+
+        $sql = "SELECT livro.id, livro.titulo, livro.ano, livro.autor
+                FROM emprestimo
+                JOIN livro ON emprestimo.idLivro = livro.id
+                WHERE emprestimo.idEstudante = ? AND emprestimo.dataDevolucao IS NULL";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $idEstudante);
         $stmt->execute();
         $result = $stmt->get_result();
 
         $livrosEmprestados = [];
         while ($row = $result->fetch_assoc()) {
-            $livrosEmprestados[] = [
-                'titulo' => $row['titulo'],
-                'data_emprestimo' => $row['data_emprestimo'],
-                'data_devolucao' => $row['data_devolucao']
-            ];
+            $livrosEmprestados[] = $row;
         }
 
         $stmt->close();

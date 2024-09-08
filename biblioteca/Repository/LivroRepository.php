@@ -1,12 +1,9 @@
 <?php
-
 namespace Repository;
 
 require_once '../db/Database.php';
 include_once '../Model/Livro.php';
-include_once '../Model/Autor.php';
 use Model\Livro;
-use Model\Autor;
 use db\Database;
 
 class LivroRepository {
@@ -20,19 +17,13 @@ class LivroRepository {
         $conn = $this->db->getConnection();
 
         if ($livro->getId()) {
-            $sql = "UPDATE livro SET titulo=?, ano=?, autor_id=? WHERE id=?";
+            $sql = "UPDATE livro SET titulo=?, ano=?, autor=? WHERE id=?";
             $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die('Erro na preparação da consulta: ' . $conn->error);
-            }
-            $stmt->bind_param("siii", $livro->getTitulo(), $livro->getAno(), $livro->getAutor()->getId(), $livro->getId());
+            $stmt->bind_param("sisi", $livro->getTitulo(), $livro->getAno(), $livro->getAutor(), $livro->getId());
         } else {
-            $sql = "INSERT INTO livro (titulo, ano, autor_id) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO livro (titulo, ano, autor) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die('Erro na preparação da consulta: ' . $conn->error);
-            }
-            $stmt->bind_param("sii", $livro->getTitulo(), $livro->getAno(), $livro->getAutor()->getId());
+            $stmt->bind_param("sis", $livro->getTitulo(), $livro->getAno(), $livro->getAutor());
         }
 
         $stmt->execute();
@@ -41,21 +32,14 @@ class LivroRepository {
 
     public function findById($id) {
         $conn = $this->db->getConnection();
-
-        $sql = "SELECT l.id, l.titulo, l.ano, a.id AS autor_id, a.nome AS autor_nome, a.nacionalidade AS autor_nacionalidade 
-                FROM livro l 
-                JOIN autor a ON l.autor_id = a.id 
-                WHERE l.id=?";
+        
+        $sql = "SELECT id, titulo, ano, autor FROM livro WHERE id=?";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $stmt->bind_result($id, $titulo, $ano, $autorId, $autorNome, $autorNacionalidade);
-
+        $stmt->bind_result($id, $titulo, $ano, $autor);
+        
         if ($stmt->fetch()) {
-            $autor = new Autor($autorId, $autorNome, $autorNacionalidade);
             $stmt->close();
             return new Livro($id, $titulo, $ano, $autor);
         }
@@ -66,34 +50,24 @@ class LivroRepository {
 
     public function findAll() {
         $conn = $this->db->getConnection();
-
-        $sql = "SELECT l.id, l.titulo, l.ano, a.id AS autor_id, a.nome AS autor_nome, a.nacionalidade AS autor_nacionalidade 
-                FROM livro l 
-                JOIN autor a ON l.autor_id = a.id";
+        
+        $sql = "SELECT id, titulo, ano, autor FROM livro";
         $result = $conn->query($sql);
-
-        if ($result === false) {
-            die('Erro na execução da consulta: ' . $conn->error);
-        }
-
+        
         $livros = [];
         while ($row = $result->fetch_assoc()) {
-            $autor = new Autor($row['autor_id'], $row['autor_nome'], $row['autor_nacionalidade']);
-            $livros[] = new Livro($row['id'], $row['titulo'], $row['ano'], $autor);
+            $livros[] = new Livro($row['id'], $row['titulo'], $row['ano'], $row['autor']);
         }
 
         $result->free();
         return $livros;
     }
-
+    
     public function delete($id) {
         $conn = $this->db->getConnection();
-
+        
         $sql = "DELETE FROM livro WHERE id=?";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $stmt->close();

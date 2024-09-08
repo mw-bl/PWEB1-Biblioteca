@@ -18,8 +18,7 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
-    $matricula = $_POST['matricula'];
-    $controller->editarEstudante($id, $nome, $matricula);
+    $controller->editarEstudante($id, $nome);
     header('Location: listar_estudantes.php');
     exit;
 }
@@ -38,9 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form action="editar_estudante.php?id=<?php echo $id; ?>" method="post">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($estudante->getNome()); ?>" required>
-        <br>
-        <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" name="matricula" value="<?php echo htmlspecialchars($estudante->getMatricula()); ?>" required>
         <br>
         <input type="submit" value="Atualizar">
     </form>

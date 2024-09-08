@@ -73,7 +73,7 @@ $livros = $controller->listarLivros();
                     <td>" . $livro->getId() . "</td>
                     <td>" . $livro->getTitulo() . "</td>
                     <td>" . $livro->getAno() . "</td>
-                    <td>" . $livro->getAutor()->getNome() . "</td>
+                    <td>" . $livro->getAutor() . "</td>
                     <td>
                         <a href='editar_livro.php?id=" . $livro->getId() . "'>Editar</a>
                         <button onclick='confirmarExclusao(" . $livro->getId() . ")'>Excluir</button>
