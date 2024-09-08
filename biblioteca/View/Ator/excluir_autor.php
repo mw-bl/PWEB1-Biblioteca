@@ -10,7 +10,7 @@ $id = $_GET['id'];
 
 $controller = new AutorController();
 $controller->excluirAutor($id);
-header('Location: listar_autores.php');
+header('Location: Ator/listar_autores.php');
 exit;
 ?>
 

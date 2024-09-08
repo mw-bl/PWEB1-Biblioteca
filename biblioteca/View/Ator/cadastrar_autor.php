@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $nacionalidade = $_POST['nacionalidade'];
     $controller->cadastrarAutor($nome, $nacionalidade);
-    header('Location: listar_autores.php');
+    header('Location: Ator/listar_autores.php');
     exit;
 }
 ?>
