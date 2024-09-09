@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 include_once '../Controller/EstudanteController.php';
 use Controller\EstudanteController;
 
+// Chama a função listarEstudantes() do controller para fazer a listagem dos estudantes
 $controller = new EstudanteController();
 $estudantes = $controller->listarEstudantes();
 ?>
