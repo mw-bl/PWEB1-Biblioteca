@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 include_once '../Controller/AutorController.php';
 use Controller\AutorController;
 
+// Chama a função listarAutores() do controller para fazer a listagem dos autores
 $controller = new AutorController();
 $autores = $controller->listarAutores();
 ?>
