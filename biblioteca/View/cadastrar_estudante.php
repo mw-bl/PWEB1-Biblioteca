@@ -8,6 +8,7 @@ use Controller\EstudanteController;
 
 $controller = new EstudanteController();
 
+// Realiza um POST para cadastrar um estudante
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $controller->cadastrarEstudante($nome);
