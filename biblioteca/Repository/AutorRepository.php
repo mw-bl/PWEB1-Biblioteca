@@ -17,6 +17,7 @@ class AutorRepository {
     public function save(Autor $autor) {
         $conn = $this->db->getConnection();
 
+        // Atualiza caso exista um autor no banco de dados
         if ($autor->getId()) {
             $sql = "UPDATE autor SET nome=?, nacionalidade=? WHERE id=?";
             $stmt = $conn->prepare($sql);
@@ -25,6 +26,7 @@ class AutorRepository {
             }
             $stmt->bind_param("ssi", $autor->getNome(), $autor->getNacionalidade(), $autor->getId());
         } else {
+            // Cadastra um autor
             $sql = "INSERT INTO autor (nome, nacionalidade) VALUES (?, ?)";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
@@ -37,6 +39,7 @@ class AutorRepository {
         $stmt->close();
     }
 
+    // Pega o autor pelo Id do banco de dados
     public function findById($id) {
         $conn = $this->db->getConnection();
         
@@ -57,7 +60,8 @@ class AutorRepository {
         $stmt->close();
         return null;
     }
-    
+
+    // Pega todos os autores do banco de dados
     public function findAll() {
         $conn = $this->db->getConnection();
         
@@ -76,7 +80,8 @@ class AutorRepository {
         $result->free();
         return $autores;
     }
-    
+
+    // Apaga um autor do banco de dados
     public function delete($id) {
         $conn = $this->db->getConnection();
         
