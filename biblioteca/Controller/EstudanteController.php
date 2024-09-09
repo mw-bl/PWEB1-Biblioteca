@@ -16,11 +16,13 @@ class EstudanteController {
         $this->repository = new EstudanteRepository();
     }
 
+    // Cadastra um estudante
     public function cadastrarEstudante($nome) {
         $estudante = new Estudante(null, $nome);
         $this->repository->save($estudante);
     }
 
+    // Edita um estudante
     public function editarEstudante($idEstudante, $nome) {
         $estudante = $this->repository->findById($idEstudante);
         if ($estudante) {
@@ -29,14 +31,17 @@ class EstudanteController {
         }
     }
 
+    // Apaga um estudante
     public function excluirEstudante($idEstudante) {
         $this->repository->delete($idEstudante);
     }
 
+    // Lista os estudantes
     public function listarEstudantes() {
         return $this->repository->findAll();
     }
 
+    // Lista um estudante pelo Id
     public function getEstudanteById($idEstudante) {
         return $this->repository->findById($idEstudante);
     }
