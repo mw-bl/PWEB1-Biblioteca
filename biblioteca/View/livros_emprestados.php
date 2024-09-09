@@ -25,8 +25,8 @@ $livrosEmprestados = $emprestimoController->listarLivrosEmprestados();
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
             margin: 0;
@@ -47,21 +47,25 @@ $livrosEmprestados = $emprestimoController->listarLivrosEmprestados();
         }
 
         .container {
-            margin: 4rem auto 0 auto;
-            max-width: 800px;
+            margin: 4rem auto;
+            max-width: 1200px;
             padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             font-size: 24px;
             margin-bottom: 20px;
+            color: #333;
         }
 
         a {
             display: inline-block;
             margin-bottom: 20px;
             font-size: 16px;
-            color: #1b4c1b;
+            color: #266b25;
             text-decoration: none;
         }
 
@@ -72,21 +76,18 @@ $livrosEmprestados = $emprestimoController->listarLivrosEmprestados();
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            margin-bottom: 20px;
         }
 
         th, td {
-            border: 1px solid #d9d9d9;
+            border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
         }
 
         th {
-            background-color: #f5f5f5;
-            color: #595959;
+            background-color: #379936;
+            color: white;
         }
 
         td {
@@ -101,16 +102,14 @@ $livrosEmprestados = $emprestimoController->listarLivrosEmprestados();
         }
 
         @media (max-width: 768px) {
-            .container {
-                margin: 2rem auto;
-                padding: 1rem;
+            table {
+                font-size: 14px;
             }
         }
 
         @media (max-width: 480px) {
-            button {
-                padding: 4px 8px;
-                font-size: 10px;
+            table {
+                font-size: 12px;
             }
         }
     </style>
