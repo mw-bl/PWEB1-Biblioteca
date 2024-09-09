@@ -7,6 +7,7 @@ include_once '../Controller/EmprestimoController.php';
 
 use Controller\EmprestimoController;
 
+// Chama a função listarLivrosEmprestados() do controller para fazer a listagem dos livros emprestados
 $emprestimoController = new EmprestimoController();
 $livrosEmprestados = $emprestimoController->listarLivrosEmprestados();
 ?>
