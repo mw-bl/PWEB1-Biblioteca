@@ -11,6 +11,7 @@ class EmprestimoRepository {
         $this->db = new Database();
     }
 
+    // Registra um emprestimo
     public function registrarEmprestimo($idLivro, $idEstudante, $dataEmprestimo) {
         $conn = $this->db->getConnection();
 
@@ -33,6 +34,7 @@ class EmprestimoRepository {
         return true;
     }
 
+    // Registra a devolução do livro
     public function registrarDevolucao($idLivro, $idEstudante, $dataDevolucao) {
         $conn = $this->db->getConnection();
 
@@ -50,6 +52,7 @@ class EmprestimoRepository {
         return false;
     }
 
+    // Lista os livros emprestados
     public function listarLivrosEmprestados() {
         $conn = $this->db->getConnection();
 
