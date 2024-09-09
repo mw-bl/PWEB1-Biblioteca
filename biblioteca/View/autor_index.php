@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
             margin: 0;
@@ -21,7 +21,7 @@
         }
 
         .navbar {
-            background-color: #007bff;
+            background-color: #379936;
             color: white;
             width: 100%;
             padding: 1rem;
@@ -30,20 +30,26 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1000; 
+            z-index: 1000;
         }
 
         .container {
             background-color: white;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 1440px;
-            height: 1024px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
             margin: 4rem auto 0 auto;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
         }
 
         .button {
@@ -52,22 +58,24 @@
             color: white;
             padding: 0.75rem 1.5rem;
             margin: 0.5rem;
-            background-color: #007bff;
-            border-radius: 5px;
+            background-color: #379936;
+            border-radius: 4px;
             transition: background-color 0.3s, color 0.3s;
             font-size: 1rem;
             text-align: center;
+            border: none;
+            cursor: pointer;
         }
 
         .button:hover {
-            background-color: #0056b3;
+            background-color: #1b4c1b;
         }
 
         .button-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 1rem;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
         }
 
         @media (max-width: 768px) {
@@ -88,6 +96,7 @@
 <body>
     <div class="navbar">Autores</div>
     <div class="container">
+        <h1>Gerenciar Autores</h1>
         <div class="button-container">
             <a href="cadastrar_autor.php" class="button">Cadastrar Novo Autor</a>
             <a href="listar_autores.php" class="button">Listar Autores</a>

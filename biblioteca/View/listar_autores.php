@@ -17,34 +17,110 @@ $autores = $controller->listarAutores();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Autores</title>
     <style>
-        table {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #379936;
+            color: white;
             width: 100%;
-            border-collapse: collapse;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+
+        .container {
+            margin: 4rem auto;
+            max-width: 1200px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        th {
-            background-color: #f2f2f2;
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
         }
+
         a {
-            margin-right: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #266b25;
             text-decoration: none;
-            color: #007BFF;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #379936;
+            color: white;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
         button {
-            background-color: #dc3545;
+            background-color: #266b25;
             color: white;
             border: none;
             padding: 5px 10px;
             cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
         }
+
         button:hover {
-            background-color: #c82333;
+            background-color: #1b4c1b;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table {
+                font-size: 12px;
+            }
+
+            button {
+                padding: 4px 8px;
+            }
         }
     </style>
     <script>
@@ -56,32 +132,35 @@ $autores = $controller->listarAutores();
     </script>
 </head>
 <body>
-    <h1>Lista de Autores</h1>
-    <a href="index.php">Voltar para a página inicial</a>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Nacionalidade</th>
-            <th>Ações</th>
-        </tr>
-        <?php
-        if (!empty($autores)) {
-            foreach ($autores as $autor) {
-                echo "<tr>
-                    <td>" . $autor->getId() . "</td>
-                    <td>" . $autor->getNome() . "</td>
-                    <td>" . $autor->getNacionalidade() . "</td>
-                    <td>
-                        <a href='editar_autor.php?id=" . $autor->getId() . "'>Editar</a>
-                        <button onclick='confirmarExclusao(" . $autor->getId() . ")'>Excluir</button>
-                    </td>
-                </tr>";
+    <div class="navbar">Lista de Autores</div>
+    <div class="container">
+        <a href="index.php">Voltar para a página inicial</a>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Nacionalidade</th>
+                <th>Ações</th>
+            </tr>
+            <?php
+            if (!empty($autores)) {
+                foreach ($autores as $autor) {
+                    echo "<tr>
+                        <td>" . $autor->getId() . "</td>
+                        <td>" . $autor->getNome() . "</td>
+                        <td>" . $autor->getNacionalidade() . "</td>
+                        <td>
+                            <a href='editar_autor.php?id=" . $autor->getId() . "'>Editar</a>
+                            <button onclick='confirmarExclusao(" . $autor->getId() . ")'>Excluir</button>
+                        </td>
+                    </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='4'>Nenhum autor encontrado</td></tr>";
             }
-        } else {
-            echo "<tr><td colspan='4'>Nenhum autor encontrado</td></tr>";
-        }
-        ?>
-    </table>
+            ?>
+        </table>
+    </div>
 </body>
 </html>
+
