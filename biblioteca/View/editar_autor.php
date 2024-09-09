@@ -8,6 +8,7 @@ use Controller\AutorController;
 
 $controller = new AutorController();
 
+// Realiza um GET para pegar os autores
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $autor = $controller->getAutorById($id);
@@ -16,6 +17,7 @@ if (isset($_GET['id'])) {
     exit;
 }
 
+// Realiza um POST para realizar a atualização
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $nacionalidade = $_POST['nacionalidade'];
