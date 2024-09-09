@@ -13,14 +13,17 @@ class EstudanteRepository {
         $this->db = new Database();
     }
 
+    // Salva um estudante no banco de dados
     public function save(Estudante $estudante) {
         $conn = $this->db->getConnection();
 
+        // Atualiza caso exista um estudante
         if ($estudante->getIdEstudante()) {
             $sql = "UPDATE estudante SET nome=? WHERE idEstudante=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("si", $estudante->getNome(), $estudante->getIdEstudante());
         } else {
+            // Registra o estudante
             $sql = "INSERT INTO estudante (nome) VALUES (?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $estudante->getNome());
@@ -30,6 +33,7 @@ class EstudanteRepository {
         $stmt->close();
     }
 
+    // Pega o estudante pelo Id
     public function findById($idEstudante) {
         $conn = $this->db->getConnection();
 
@@ -48,6 +52,7 @@ class EstudanteRepository {
         return null;
     }
 
+    // Pega todos os estudantes
     public function findAll() {
         $conn = $this->db->getConnection();
 
@@ -63,6 +68,7 @@ class EstudanteRepository {
         return $estudantes;
     }
 
+    // Apaga um estudante
     public function delete($idEstudante) {
         $conn = $this->db->getConnection();
 
