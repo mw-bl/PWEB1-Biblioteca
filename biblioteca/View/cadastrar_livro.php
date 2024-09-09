@@ -8,6 +8,7 @@ use Controller\LivroController;
 
 $controller = new LivroController();
 
+// Realiza um POST para cadastrar um livro
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = $_POST['titulo'];
     $ano = $_POST['ano'];
