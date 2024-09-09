@@ -9,6 +9,7 @@ require_once '../db/Database.php';
 use Model\Livro;
 use Model\Estudante;
 use Repository\EmprestimoRepository;
+use db\Database;
 
 class EmprestimoController {
     private $repository;
@@ -18,20 +19,16 @@ class EmprestimoController {
     }
 
     public function emprestarLivro($livroId, $estudanteId) {
-        $livro = new Livro($livroId, "", 0, null);
-        $estudante = new Estudante($estudanteId, "");
-        $this->repository->emprestarLivro($livro, $estudante);
+        $dataEmprestimo = date('Y-m-d');
+        $this->repository->registrarEmprestimo($livroId, $estudanteId, $dataEmprestimo);
     }
 
-    public function devolverLivro($livroId, $estudanteId) {
-        $livro = new Livro($livroId, "", 0, null);
-        $estudante = new Estudante($estudanteId, "");
-        $this->repository->devolverLivro($livro, $estudante);
+    public function devolverLivro($livroId, $estudanteId, $dataDevolucao) {
+        return $this->repository->registrarDevolucao($livroId, $estudanteId, $dataDevolucao);
     }
 
-    public function listarLivrosEmprestados($estudanteId) {
-        $estudante = new Estudante($estudanteId, "");
-        return $this->repository->listarLivrosEmprestados($estudante);
+    public function listarLivrosEmprestados() {
+        return $this->repository->listarLivrosEmprestados();
     }
 }
 ?>
