@@ -9,6 +9,7 @@ use Controller\EmprestimoController;
 
 $emprestimoController = new EmprestimoController();
 
+// Realiza um POST para devolver um livro
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idLivro = intval($_POST['idLivro']);
     $idEstudante = intval($_POST['idEstudante']);
