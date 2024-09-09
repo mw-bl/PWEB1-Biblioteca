@@ -14,10 +14,12 @@ class Livro {
         $this->autor = $autor;
     }
 
+    // Getter do Id do Livro
     public function getId() {
         return $this->id;
     }
 
+    // Getter e Setter do Titulo do Livro
     public function getTitulo() {
         return $this->titulo;
     }
@@ -25,6 +27,7 @@ class Livro {
         $this->titulo = $titulo;
     }
 
+    // Getter e Setter do Ano do Livro
     public function getAno() {
         return $this->ano;
     }
@@ -32,6 +35,7 @@ class Livro {
         $this->ano = $ano;
     }
 
+    // Getter e Setter do Autor do Livro
     public function getAutor() {
         return $this->autor;
     }
