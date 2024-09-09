@@ -116,7 +116,7 @@ $livrosEmprestados = $emprestimoController->listarLivrosEmprestados();
     </style>
 </head>
 <body>
-    <div class="navbar">Biblioteca IFCE</div>
+    <div class="navbar">Emprestimos</div>
     <div class="container">
         <h1>Livros Emprestados</h1>
         <a href="index.php">Voltar para a página inicial</a>
