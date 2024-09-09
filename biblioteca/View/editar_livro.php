@@ -8,6 +8,7 @@ use Controller\LivroController;
 
 $controller = new LivroController();
 
+// Realiza um GET para pegar os livros
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $livro = $controller->getLivroById($id);
@@ -16,6 +17,7 @@ if (isset($_GET['id'])) {
     exit;
 }
 
+// Realiza um POST para realizar a atualização
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = $_POST['titulo'];
     $ano = $_POST['ano'];
