@@ -12,10 +12,12 @@ class Autor {
         $this->nacionalidade = $nacionalidade;
     }
 
+    // Getter do Id
     public function getId() {
         return $this->id;
     }
 
+    // Getter e Setter do Nome do autor
     public function getNome() {
         return $this->nome;
     }
@@ -23,6 +25,7 @@ class Autor {
         return $this->nome = $nome;
     }
 
+    // Getter e Setter da Nacionalidade do autor
     public function getNacionalidade() {
         return $this->nacionalidade;
     }
