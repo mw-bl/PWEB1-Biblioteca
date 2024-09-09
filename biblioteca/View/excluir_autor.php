@@ -9,7 +9,7 @@ use Controller\AutorController;
 // Realiza um GET para pegar o Id do autor
 $id = $_GET['id'];
 
-// Chama a função excluirAutor() do Controller para realizar a exclusao do autor
+// Chama a função excluirAutor() do Controller para realizar a exclusao do autor pelo ID chamado
 $controller = new AutorController();
 $controller->excluirAutor($id);
 header('Location: listar_autores.php');
