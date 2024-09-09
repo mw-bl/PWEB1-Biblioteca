@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 include_once '../Controller/LivroController.php';
 use Controller\LivroController;
 
+// Chama a função listarLivros() do controller para fazer a listagem dos livros
 $controller = new LivroController();
 $livros = $controller->listarLivros();
 ?>
