@@ -8,6 +8,7 @@ use Controller\AutorController;
 
 $controller = new AutorController();
 
+// Realiza um POST para cadastrar um autor
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $nacionalidade = $_POST['nacionalidade'];
@@ -16,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
