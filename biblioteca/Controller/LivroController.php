@@ -16,11 +16,13 @@ class LivroController {
         $this->repository = new LivroRepository();
     }
 
+    // Cadastra um livro
     public function cadastrarLivro($titulo, $ano, $autor) {
         $livro = new Livro(null, $titulo, $ano, $autor);
         $this->repository->save($livro);
     }
 
+    // Edita um livro
     public function editarLivro($id, $titulo, $ano, $autor) {
         $livro = $this->repository->findById($id);
         if ($livro) {
@@ -31,14 +33,17 @@ class LivroController {
         }
     }
 
+    // Apaga um livro
     public function excluirLivro($id) {
         $this->repository->delete($id);
     }
 
+    // Lista os livros
     public function listarLivros() {
         return $this->repository->findAll();
     }
 
+    // Lista um livro pelo Id
     public function getLivroById($id) {
         return $this->repository->findById($id);
     }
