@@ -18,15 +18,18 @@ class EmprestimoController {
         $this->repository = new EmprestimoRepository();
     }
 
+    // Empresta um livro
     public function emprestarLivro($livroId, $estudanteId) {
         $dataEmprestimo = date('Y-m-d');
         $this->repository->registrarEmprestimo($livroId, $estudanteId, $dataEmprestimo);
     }
 
+    // Devolve um livro
     public function devolverLivro($livroId, $estudanteId, $dataDevolucao) {
         return $this->repository->registrarDevolucao($livroId, $estudanteId, $dataDevolucao);
     }
 
+    // Lista os livros emprestados
     public function listarLivrosEmprestados() {
         return $this->repository->listarLivrosEmprestados();
     }
