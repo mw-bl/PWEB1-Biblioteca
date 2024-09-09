@@ -17,11 +17,13 @@ class AutorController {
         $this->repository = new AutorRepository();
     }
 
+    // Cadastra um novo autor
     public function cadastrarAutor($nome, $nacionalidade) {
         $autor = new Autor(null, $nome, $nacionalidade);
         $this->repository->save($autor);
     }
 
+    // Edita um autor
     public function editarAutor($id, $nome, $nacionalidade) {
         $autor = $this->repository->findById($id);
         if ($autor) {
@@ -31,14 +33,17 @@ class AutorController {
         }
     }
 
+    // Apaga um autor
     public function excluirAutor($id) {
         $this->repository->delete($id);
     }
 
+    // Lista todos os autores
     public function listarAutores() {
         return $this->repository->findAll();
     }
 
+    // Lista um autor pelo Id
     public function getAutorById($id) {
         return $this->repository->findById($id);
     }
