@@ -8,6 +8,7 @@ use Controller\EstudanteController;
 
 $controller = new EstudanteController();
 
+// Realiza um GET para pegar os estudantes
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $estudante = $controller->getEstudanteById($id);
@@ -16,6 +17,7 @@ if (isset($_GET['id'])) {
     exit;
 }
 
+// Realiza um POST para realizar a atualização
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'];
     $controller->editarEstudante($id, $nome);
