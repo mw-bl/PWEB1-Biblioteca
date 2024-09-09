@@ -15,6 +15,7 @@ $emprestimoController = new EmprestimoController();
 $livroController = new LivroController();
 $estudanteController = new EstudanteController();
 
+// Realiza um POST para realizar o emprestimo
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idLivro = intval($_POST['idLivro']);
     $idEstudante = intval($_POST['idEstudante']);
