@@ -48,3 +48,11 @@ O Sistema de Biblioteca Online é uma aplicação web desenvolvida para gerencia
 - **Adicionar Autenticação**: Implementar um sistema de login para diferentes níveis de acesso (administrador, usuário).
 - **Testes Automatizados**: Criar testes automatizados para garantir a qualidade e a estabilidade do sistema.
 - **Documentação**: Expandir a documentação do projeto com exemplos de uso e instruções detalhadas para desenvolvedores.
+
+
+<div align = "center">
+<h3> Desenvolvido por:
+  
+<br> 👨🏽‍💻 Marcos Willian
+<br> 👩🏻‍💻 Maria Eduarda Aires
+</div>
