@@ -10,14 +10,15 @@ class Estudante {
         $this->nome = $nome;
     }
 
+    // Getter do Id do Estudante
     public function getIdEstudante() {
         return $this->idEstudante;
     }
 
+    // Getter e Setter do Nome do Estudante
     public function getNome() {
         return $this->nome;
     }
-
     public function setNome($nome) {
         $this->nome = $nome;
     }
