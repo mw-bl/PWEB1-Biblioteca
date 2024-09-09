@@ -13,14 +13,17 @@ class LivroRepository {
         $this->db = new Database();
     }
 
+    // Salva o livro
     public function save(Livro $livro) {
         $conn = $this->db->getConnection();
 
+        // Atualiza caso exista um livro
         if ($livro->getId()) {
             $sql = "UPDATE livro SET titulo=?, ano=?, autor=? WHERE id=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sisi", $livro->getTitulo(), $livro->getAno(), $livro->getAutor(), $livro->getId());
         } else {
+            // Registra o livro
             $sql = "INSERT INTO livro (titulo, ano, autor) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sis", $livro->getTitulo(), $livro->getAno(), $livro->getAutor());
@@ -30,6 +33,7 @@ class LivroRepository {
         $stmt->close();
     }
 
+    // Pega um livro pelo Id
     public function findById($id) {
         $conn = $this->db->getConnection();
         
@@ -48,6 +52,7 @@ class LivroRepository {
         return null;
     }
 
+    // Pega todos os livros
     public function findAll() {
         $conn = $this->db->getConnection();
         
@@ -62,7 +67,8 @@ class LivroRepository {
         $result->free();
         return $livros;
     }
-    
+
+    // Apaga um livro
     public function delete($id) {
         $conn = $this->db->getConnection();
         
