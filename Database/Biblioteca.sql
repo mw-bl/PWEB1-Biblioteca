@@ -55,7 +55,7 @@ INSERT INTO estudante (nome) VALUES ('Pedro Almeida');
 INSERT INTO emprestimo (idLivro, idEstudante, dataEmprestimo, dataDevolucao)
 VALUES (1, 1, CURDATE(), NULL); -- Livro emprestado e ainda não devolvido
 INSERT INTO emprestimo (idLivro, idEstudante, dataEmprestimo, dataDevolucao)
-VALUES (2, 2, CURDATE(), '2024-09-10'); -- Livro emprestado e devolvido
+VALUES (2, 2, CURDATE(), '2024-09-10'); -- Livro emprestado e devolvido (altere a data de devolução para o dia que estiver acessando esse código, ou deixe em null)
 INSERT INTO emprestimo (idLivro, idEstudante, dataEmprestimo, dataDevolucao)
 VALUES (3, 3, CURDATE(), NULL); -- Livro emprestado e ainda não devolvido
 INSERT INTO emprestimo (idLivro, idEstudante, dataEmprestimo, dataDevolucao)
