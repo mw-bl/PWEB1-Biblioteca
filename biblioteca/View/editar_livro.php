@@ -8,7 +8,7 @@ use Controller\LivroController;
 
 $controller = new LivroController();
 
-// Realiza um GET para pegar os livros
+// Realiza um GET para pegar o livro desejado
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $livro = $controller->getLivroById($id);
