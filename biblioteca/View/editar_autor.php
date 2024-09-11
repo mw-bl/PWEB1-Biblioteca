@@ -8,7 +8,7 @@ use Controller\AutorController;
 
 $controller = new AutorController();
 
-// Realiza um GET para pegar os autores
+// Realiza um GET para pegar o autor desejado
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $autor = $controller->getAutorById($id);
