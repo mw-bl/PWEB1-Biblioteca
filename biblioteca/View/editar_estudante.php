@@ -8,7 +8,7 @@ use Controller\EstudanteController;
 
 $controller = new EstudanteController();
 
-// Realiza um GET para pegar os estudantes
+// Realiza um GET para pegar o estudante desejado
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $estudante = $controller->getEstudanteById($id);
